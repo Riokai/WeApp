@@ -4,13 +4,14 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import Main from './src/page/Main'
 import {
   AppRegistry,
   StyleSheet,
   Text,
   View
-} from 'react-native';
+} from 'react-native'
 
 export default class WeApp extends Component {
   render() {
@@ -27,7 +28,7 @@ export default class WeApp extends Component {
           Cmd+D or shake for dev menu
         </Text>
       </View>
-    );
+    )
   }
 }
 
@@ -48,6 +49,6 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-});
+})
 
-AppRegistry.registerComponent('WeApp', () => WeApp);
+AppRegistry.registerComponent('WeApp', () => Main)

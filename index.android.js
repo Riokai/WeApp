@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import Main from './src/page/Main'
 import {
   AppRegistry,
   StyleSheet,
@@ -50,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('WeApp', () => WeApp);
+AppRegistry.registerComponent('WeApp', () => Main);
