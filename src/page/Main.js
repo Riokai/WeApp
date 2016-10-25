@@ -3,16 +3,15 @@ import {
   View,
   Text,
   StyleSheet,
-  Alert,
+  // Alert,
   TouchableHighlight,
   ScrollView
 } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
+// import Icon from 'react-native-vector-icons/FontAwesome'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import moduleConfig from '../config/module.json'
 import TogetherPage from './Together'
-
-
+import commonStyle from '../style/common'
 
 export default class Main extends Component {
   handlePress() {
@@ -33,32 +32,34 @@ export default class Main extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.scrollView}>
-        {
-          moduleConfig.map(item => {
-            return (
-              <TouchableHighlight onPress={this.handlePress.bind(this)} key={item.name}>
-                <View style={[styles.section, { backgroundColor: item.bgcolor }]}>
-                  <View style={styles.iconWrapper}>
-                    {/* <Icon name={item.icon} size={40} color="#fff" /> */}
-                    <IonIcon name={item.icon} size={40} color="#fff" />
+      <View style={commonStyle.pageWrapper}>
+        <ScrollView style={styles.scrollView}>
+          {
+            moduleConfig.map(item => {
+              return (
+                <TouchableHighlight onPress={this.handlePress.bind(this)} key={item.name}>
+                  <View style={[styles.section, { backgroundColor: item.bgcolor }]}>
+                    <View style={styles.iconWrapper}>
+                      {/* <Icon name={item.icon} size={40} color="#fff" /> */}
+                      <IonIcon name={item.icon} size={40} color="#fff" />
+                    </View>
+                    <View style={styles.textWrapper}>
+                      <Text style={styles.text}>{item.name}</Text>
+                    </View>
                   </View>
-                  <View style={styles.textWrapper}>
-                    <Text style={styles.text}>{item.name}</Text>
-                  </View>
-                </View>
-              </TouchableHighlight>
-            )
-          })
-        }
-      </ScrollView>
+                </TouchableHighlight>
+              )
+            })
+          }
+        </ScrollView>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
   scrollView: {
-    paddingTop: 22
+    // paddingTop: 22
   },
   iconWrapper: {
     width: 80,
