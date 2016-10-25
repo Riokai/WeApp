@@ -1,0 +1,27 @@
+[
+  {
+    "icon": "md-clock",
+    "name": "Section 1",
+    "bgcolor": "#53ad58"
+  },
+  {
+    "icon": "md-images",
+    "name": "Section 2",
+    "bgcolor": "#ee4643"
+  },
+  {
+    "icon": "ios-text",
+    "name": "Section 3",
+    "bgcolor": "#4157af"
+  },
+  {
+    "icon": "md-checkbox-outline",
+    "name": "Section 4",
+    "bgcolor": "#2cacef"
+  },
+  {
+    "icon": "md-time",
+    "name": "Section 5",
+    "bgcolor": "#218588"
+  }
+]
