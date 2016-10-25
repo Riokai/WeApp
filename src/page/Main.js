@@ -10,19 +10,25 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import moduleConfig from '../config/module.json'
+import TogetherPage from './Together'
 
 
 
 export default class Main extends Component {
   handlePress() {
-    Alert.alert('title', '666', [
-      {
-        text: 'OK',
-        onPress() {
-          console.log('ok pressed')
-        }
-      }
-    ])
+    // Alert.alert('title', '666', [
+    //   {
+    //     text: 'OK',
+    //     onPress() {
+    //       console.log('ok pressed')
+    //     }
+    //   }
+    // ])
+    const { navigator } = this.props
+
+    navigator.push({
+      component: TogetherPage
+    })
   }
 
   render() {
@@ -31,7 +37,7 @@ export default class Main extends Component {
         {
           moduleConfig.map(item => {
             return (
-              <TouchableHighlight onPress={this.handlePress} key={item.name}>
+              <TouchableHighlight onPress={this.handlePress.bind(this)} key={item.name}>
                 <View style={[styles.section, { backgroundColor: item.bgcolor }]}>
                   <View style={styles.iconWrapper}>
                     {/* <Icon name={item.icon} size={40} color="#fff" /> */}
@@ -52,7 +58,7 @@ export default class Main extends Component {
 
 const styles = StyleSheet.create({
   scrollView: {
-    paddingTop: 30
+    paddingTop: 22
   },
   iconWrapper: {
     width: 80,
