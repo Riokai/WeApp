@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import Main from './src/page/Main'
+import Root from './src'
 import {
   AppRegistry,
   StyleSheet,
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('WeApp', () => Main);
+AppRegistry.registerComponent('WeApp', () => Root);

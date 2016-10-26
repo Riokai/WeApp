@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 
 export default StyleSheet.create({
   pageWrapper: {
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#fff',
-    paddingTop: 22
+    paddingTop: Platform.OS === 'ios' ? 22 : 0
   }
 })

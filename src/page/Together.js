@@ -19,7 +19,6 @@ export default class Together extends Component {
   }
 
   componentDidMount() {
-    console.log('navi', this.props.navigator.getCurrentRoutes())
     this.timer = setInterval(() => {
       this.getText()
     }, 1000)

@@ -40,6 +40,7 @@ export default class HeaderBar extends Component {
       <View style={[{ backgroundColor }, this.props.style]}>
         <StatusBar
           style={styles.statusBar}
+          backgroundColor={backgroundColor}
           {...this.props.statusBar}
         />
         {
@@ -77,7 +78,9 @@ const styles = StyleSheet.create({
     right: 0,
     height: 22
   },
-  statusBar: Platform.OS === 'ios' ? 20 : 0,
+  statusBar: {
+    height: Platform.OS === 'ios' ? 20 : 0
+  },
   title: {
     fontSize: 20,
     color: '#fff'
