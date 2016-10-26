@@ -7,13 +7,14 @@ import {
   TouchableHighlight,
   ScrollView
 } from 'react-native'
+import { connect } from 'react-redux'
 // import Icon from 'react-native-vector-icons/FontAwesome'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import moduleConfig from '../config/module.json'
 import TogetherPage from './Together'
 import commonStyle from '../style/common'
 
-export default class Main extends Component {
+class Main extends Component {
   handlePress() {
     // Alert.alert('title', '666', [
     //   {
@@ -31,6 +32,8 @@ export default class Main extends Component {
   }
 
   render() {
+    const { mainReducer } = this.props
+
     return (
       <View style={commonStyle.pageWrapper}>
         <ScrollView style={styles.scrollView}>
@@ -97,3 +100,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue'
   }
 })
+
+function mapStateToProps({ mainReducer }) {
+  return { mainReducer };
+}
+
+export default connect(mapStateToProps)(Main);

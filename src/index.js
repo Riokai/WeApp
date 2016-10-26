@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { Navigator } from 'react-native'
+import { Provider } from 'react-redux'
 import MainPage from './page/Main'
+import createStore from './store'
+
+const store = createStore()
 
 export default class Root extends Component {
   constructor(props) {
@@ -17,13 +21,15 @@ export default class Root extends Component {
 
   render() {
     return (
-      <Navigator
-        initialRoute={{
-          name: 'Main',
-          component: MainPage
-        }}
-        renderScene={(e, i) => this._renderScene(e, i)}
-      />
+      <Provider store={store}>
+        <Navigator
+          initialRoute={{
+            name: 'Main',
+            component: MainPage
+          }}
+          renderScene={(e, i) => this._renderScene(e, i)}
+        />
+      </Provider>
     )
   }
 }
