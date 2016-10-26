@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import commonStyle from '../style/common'
+import HeaderBar from '../component/HeaderBar'
 import moment from 'moment'
 import 'moment-duration-format'
 
@@ -13,10 +14,15 @@ export default class Together extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.timer)
+  }
+
   componentDidMount() {
-    setInterval(() => {
+    console.log('navi', this.props.navigator.getCurrentRoutes())
+    this.timer = setInterval(() => {
       this.getText()
-    }, 1000);
+    }, 1000)
   }
 
   getText() {
@@ -30,10 +36,21 @@ export default class Together extends Component {
   }
 
   render() {
+    const { navigator, bgcolor } = this.props
+
     return (
       <View style={commonStyle.pageWrapper}>
-        <Text>{this.state.text}</Text>
+        <HeaderBar title="Section 2" navigator={navigator} backgroundColor={bgcolor} />
+        <Text style={styles.text}>{this.state.text}</Text>
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 20,
+    marginTop: 30,
+    textAlign: 'center'
+  }
+})

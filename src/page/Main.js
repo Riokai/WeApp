@@ -16,11 +16,12 @@ import TogetherPage from './Together'
 import commonStyle from '../style/common'
 
 class Main extends Component {
-  handlePress() {
+  handlePress(bgcolor) {
     const { navigator } = this.props
 
     navigator.push({
-      component: TogetherPage
+      component: TogetherPage,
+      params: { bgcolor }
     })
   }
 
@@ -34,7 +35,7 @@ class Main extends Component {
           {
             moduleConfig.map(item => {
               return (
-                <TouchableHighlight onPress={this.handlePress.bind(this)} key={item.name}>
+                <TouchableHighlight onPress={this.handlePress.bind(this, item.bgcolor)} key={item.name}>
                   <View style={[styles.section, { backgroundColor: item.bgcolor }]}>
                     <View style={styles.iconWrapper}>
                       <IonIcon name={item.icon} size={40} color="#fff" />
@@ -67,13 +68,9 @@ const styles = StyleSheet.create({
   },
   section: {
     height: 80,
-    // display: 'flex',
     flex: 1,
     flexDirection: 'row',
-    // justifyContent: 'center',
     alignItems: 'center',
-    // borderRadius: 10,
-    // overflow: 'hidden'
   },
   text: {
     position: 'relative',

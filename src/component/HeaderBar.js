@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, StatusBar, StyleSheet, Platform } from 'react-native'
+import { View, Text, StatusBar, StyleSheet, Platform, TouchableOpacity } from 'react-native'
+import IonIcon from 'react-native-vector-icons/Ionicons'
 
 const StatusBarShape = {
     barStyle: PropTypes.oneOf(['light-content', 'default',]),
@@ -16,35 +17,50 @@ export default class HeaderBar extends Component {
     style: View.propTypes.style,
     navigator: PropTypes.object,
     leftButtonTitle: PropTypes.string,
-    popEnabled: PropTypes.bool,
-    onLeftButtonClick: PropTypes.func,
-    title: PropTypes.string,
-    titleView: PropTypes.element,
     hide: PropTypes.bool,
     statusBar: PropTypes.shape(StatusBarShape),
   }
 
   static defaultProps = {
     statusBar: {
-      barStyle: 'default',
+      barStyle: 'light-content',
       hidden: false,
-      translucent:false,
-      animated:false,
-    }
+      translucent: false,
+      animated: false,
+    },
+    backgroundColor: '#fff'
   }
 
   render() {
+    const { navigator, backgroundColor } = this.props
+
+    console.log('backgroundColor', backgroundColor);
+
     return (
-      <View style={[styles.container, this.props.style]}>
+      <View style={[{ backgroundColor }, this.props.style]}>
         <StatusBar
           style={styles.statusBar}
           {...this.props.statusBar}
         />
-         <View style={styles.navBar}>
-           <View style={styles.navBarTitleContainer}>
-             <Text style={styles.title}>{this.props.title}</Text>
-           </View>
-         </View>
+        {
+          Platform.OS === 'ios' ? (<View style={[styles.iosStatusBar, {
+            backgroundColor
+          }]} />) : null
+        }
+        <View style={styles.navBar}>
+          {
+            navigator.getCurrentRoutes().length > 1 ? (
+              <View style={styles.backBtn}>
+                <TouchableOpacity onPress={() => navigator.pop()}>
+                  <IonIcon name="md-arrow-back" size={28} color="#fff" />
+                </TouchableOpacity>
+              </View>
+            ) : null
+          }
+          <View style={styles.navBarTitleContainer}>
+            <Text style={styles.title}>{this.props.title}</Text>
+          </View>
+        </View>
       </View>
     )
   }
@@ -54,12 +70,29 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#2cacef',
   },
+  iosStatusBar: {
+    position: 'absolute',
+    top: -22,
+    left: 0,
+    right: 0,
+    height: 22
+  },
   statusBar: Platform.OS === 'ios' ? 20 : 0,
   title: {
     fontSize: 20,
     color: '#fff'
   },
+  backBtn: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    flex: 1,
+    justifyContent: 'center',
+    // backgroundColor: 'red',
+    left: 10
+  },
   navBar: {
+    position: 'relative',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
