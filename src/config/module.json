@@ -8,25 +8,25 @@
   {
     "icon": "md-images",
     "name": "Section 2",
-    "bgcolor": "#ee4643",
+    "bgcolor": "#218588",
     "key": "gallery"
   },
   {
     "icon": "ios-text",
     "name": "Section 3",
-    "bgcolor": "#4157af",
+    "bgcolor": "#e22965",
     "key": "message"
   },
   {
     "icon": "md-checkbox-outline",
     "name": "Section 4",
-    "bgcolor": "#e22965",
+    "bgcolor": "#4157af",
     "key": "todo"
   },
   {
     "icon": "md-time",
     "name": "Section 5",
-    "bgcolor": "#218588",
+    "bgcolor": "#ee4643",
     "key": "timeline"
   }
 ]
