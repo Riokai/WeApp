@@ -36,8 +36,6 @@ export default class HeaderBar extends Component {
   render() {
     const { navigator, backgroundColor } = this.props
 
-    console.log('backgroundColor', backgroundColor);
-
     return (
       <View style={[{ backgroundColor }, this.props.style]}>
         <StatusBar

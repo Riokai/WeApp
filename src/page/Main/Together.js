@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import commonStyle from '../style/common'
-import HeaderBar from '../component/HeaderBar'
+import commonStyle from '../../style/common'
 import moment from 'moment'
 import 'moment-duration-format'
 
@@ -19,6 +18,7 @@ export default class Together extends Component {
   }
 
   componentDidMount() {
+    this.getText()
     this.timer = setInterval(() => {
       this.getText()
     }, 1000)
@@ -35,11 +35,10 @@ export default class Together extends Component {
   }
 
   render() {
-    const { navigator, bgcolor } = this.props
+    const { bgcolor } = this.props
 
     return (
-      <View style={commonStyle.pageWrapper}>
-        <HeaderBar title="Section 2" navigator={navigator} backgroundColor={bgcolor} />
+      <View>
         <Text style={styles.text}>{this.state.text}</Text>
       </View>
     )

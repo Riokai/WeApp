@@ -2,26 +2,31 @@
   {
     "icon": "md-calendar",
     "name": "Section 1",
-    "bgcolor": "#53ad58"
+    "bgcolor": "#53ad58",
+    "key": "together"
   },
   {
     "icon": "md-images",
     "name": "Section 2",
-    "bgcolor": "#ee4643"
+    "bgcolor": "#ee4643",
+    "key": "gallery"
   },
   {
     "icon": "ios-text",
     "name": "Section 3",
-    "bgcolor": "#4157af"
+    "bgcolor": "#4157af",
+    "key": "message"
   },
   {
     "icon": "md-checkbox-outline",
     "name": "Section 4",
-    "bgcolor": "#e22965"
+    "bgcolor": "#e22965",
+    "key": "todo"
   },
   {
     "icon": "md-time",
     "name": "Section 5",
-    "bgcolor": "#218588"
+    "bgcolor": "#218588",
+    "key": "timeline"
   }
 ]

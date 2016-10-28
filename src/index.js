@@ -14,7 +14,6 @@ export default class Root extends Component {
 
   _renderScene(route, navigator) {
     const { component: RouterComponent, params } = route
-
     return (
       <RouterComponent {...params} navigator={navigator}/>
     )

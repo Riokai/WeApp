@@ -12,16 +12,17 @@ import { connect } from 'react-redux'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import HeaderBar from '../component/HeaderBar'
 import moduleConfig from '../config/module.json'
-import TogetherPage from './Together'
+import MainLayout from './Main/Layout'
 import commonStyle from '../style/common'
 
 class Main extends Component {
-  handlePress(bgcolor) {
+  handlePress(item) {
     const { navigator } = this.props
+    const { bgcolor, name, key } = item
 
     navigator.push({
-      component: TogetherPage,
-      params: { bgcolor }
+      component: MainLayout,
+      params: { bgcolor, title: name, id: key }
     })
   }
 
@@ -41,7 +42,7 @@ class Main extends Component {
           {
             moduleConfig.map(item => {
               return (
-                <TouchableHighlight onPress={this.handlePress.bind(this, item.bgcolor)} key={item.name}>
+                <TouchableHighlight onPress={this.handlePress.bind(this, item)} key={item.name}>
                   <View style={[styles.section, { backgroundColor: item.bgcolor }]}>
                     <View style={styles.iconWrapper}>
                       <IonIcon name={item.icon} size={40} color="#fff" />

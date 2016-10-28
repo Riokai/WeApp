@@ -10,8 +10,8 @@ export default class Home extends Component {
     super(props)
 
     this.state = {
-      // active: 'main'
-      active: 'user'
+      active: 'main'
+      // active: 'user'
     }
   }
 
