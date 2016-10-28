@@ -9,7 +9,7 @@ const StatusBarShape = {
     hidden: PropTypes.bool,
     translucent: PropTypes.bool,
     backgroundColor: PropTypes.string,
-    animated:PropTypes.bool
+    animated: PropTypes.bool
 }
 
 export default class HeaderBar extends Component {
@@ -17,6 +17,7 @@ export default class HeaderBar extends Component {
     style: View.propTypes.style,
     navigator: PropTypes.object,
     leftButtonTitle: PropTypes.string,
+    textStyle: PropTypes.object,
     hide: PropTypes.bool,
     statusBar: PropTypes.shape(StatusBarShape),
   }
@@ -28,6 +29,7 @@ export default class HeaderBar extends Component {
       translucent: false,
       animated: false,
     },
+    textStyle: {},
     backgroundColor: '#fff'
   }
 
@@ -59,7 +61,7 @@ export default class HeaderBar extends Component {
             ) : null
           }
           <View style={styles.navBarTitleContainer}>
-            <Text style={styles.title}>{this.props.title}</Text>
+            <Text style={[styles.title, this.props.textStyle]}>{this.props.title}</Text>
           </View>
         </View>
       </View>

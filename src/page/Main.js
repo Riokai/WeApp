@@ -30,7 +30,13 @@ class Main extends Component {
 
     return (
       <View style={commonStyle.pageWrapper}>
-        {/* <HeaderBar title="Module" /> */}
+        <HeaderBar
+          title="Module"
+          statusBar={{barStyle: 'default'}}
+          textStyle={{color: '#000'}}
+          backgroundColor="#fff"
+          navigator={this.props.navigator}
+        />
         <ScrollView style={styles.scrollView}>
           {
             moduleConfig.map(item => {
@@ -57,6 +63,7 @@ class Main extends Component {
 const styles = StyleSheet.create({
   scrollView: {
     // paddingTop: 22
+    backgroundColor: '#f3f3f4'
   },
   iconWrapper: {
     width: 80,

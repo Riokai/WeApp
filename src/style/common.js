@@ -6,5 +6,11 @@ export default StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
     paddingTop: Platform.OS === 'ios' ? 22 : 0
+  },
+  line: {
+    // flex: 1,
+    height: 0.4,
+    opacity:0.5,
+    backgroundColor: 'darkgray'
   }
 })
