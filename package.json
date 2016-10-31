@@ -6,7 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
-    "log-ios": "node node_modules/react-native/local-cli/cli.js log-ios",
+    "log-ios": "tail -f /Users/Kai/Library/Logs/CoreSimulator/B345D01C-1D26-45EC-9E83-88AAA34FC4C1/system.log | grep \"WeApp\"",
     "test": "jest"
   },
   "dependencies": {

@@ -6,7 +6,7 @@ import commonStyle from '../style/common'
 export default class User extends Component {
   getMenu(title) {
     return (
-      <TouchableHighlight onPress={() => {}}>
+      <TouchableHighlight onPress={() => console.log(11111)}>
         <View style={styles.menu}>
           <Text>{title}</Text>
         </View>
