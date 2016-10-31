@@ -7,10 +7,22 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     paddingTop: Platform.OS === 'ios' ? 22 : 0
   },
+  horizontal: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  flexRight: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
   line: {
-    // flex: 1,
     height: 0.4,
     opacity:0.5,
     backgroundColor: 'darkgray'
+  },
+  colorGrey: {
+    color: '#8a8a8a'
   }
 })
