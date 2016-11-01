@@ -49,7 +49,7 @@ export default class Message extends Component {
               <View>
                 <View style={styles.msg}>
                   <View style={commonStyle.horizontal}>
-                    <Text style={styles.textName}>Kai方式多福多寿</Text>
+                    <Text style={styles.textName}>Kai</Text>
                     <Text style={commonStyle.colorGrey}>1楼</Text>
                   </View>
                   <View>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   textName: {
-    color: '#4a82da'
+    color: '#2196F3'
   },
   backdrop: {
     position: 'absolute',
