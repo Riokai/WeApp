@@ -27,14 +27,12 @@ class Main extends Component {
   }
 
   render() {
-    const { mainReducer } = this.props
-
     return (
       <View style={commonStyle.pageWrapper}>
         <HeaderBar
           title="Module"
-          statusBar={{barStyle: 'default'}}
-          textStyle={{color: '#000'}}
+          statusBar={{ barStyle: 'default' }}
+          textStyle={{ color: '#000' }}
           backgroundColor="#fff"
           navigator={this.props.navigator}
         />
@@ -68,7 +66,7 @@ const styles = StyleSheet.create({
   },
   iconWrapper: {
     width: 80,
-    paddingHorizontal:20
+    paddingHorizontal: 20
   },
   container: {
     paddingTop: 30,
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps({ mainReducer }) {
-  return { mainReducer };
+  return { mainReducer }
 }
 
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps)(Main)
