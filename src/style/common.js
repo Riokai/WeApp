@@ -18,8 +18,15 @@ export default StyleSheet.create({
   },
   line: {
     height: 0.4,
-    opacity:0.5,
+    opacity: 0.5,
     backgroundColor: 'darkgray'
+  },
+  fullScreen: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   colorGrey: {
     color: '#8a8a8a'

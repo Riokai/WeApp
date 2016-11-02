@@ -6,73 +6,129 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableHighlight,
-  Animated
+  TouchableWithoutFeedback,
+  Animated,
+  Easing
 } from 'react-native'
-import HeaderBar from '../../component/HeaderBar'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as MsgActions from '../../module/message'
+import MsgItem from '../../component/MsgItem'
 import commonStyle from '../../style/common'
 
-export default class Message extends Component {
+class Message extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      y: new Animated.Value(400),
+      showBackdrop: false
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { messageReducer } = nextProps
+
+    if (messageReducer.isShowBackdrop) {
+      Animated.timing(
+        this.state.y,
+        {
+          easing: Easing.ease,
+          toValue: 0,
+        }
+      ).start()
+    }
+  }
+
+  handleHideMsg() {
+    Animated.timing(
+      this.state.y,
+      {
+        easing: Easing.ease,
+        toValue: 400,
+      }
+    ).start(() => {
+      this.props.toggleBackdrop()
+    })
+  }
+
   render() {
+    const { messageReducer, toggleBackdrop } = this.props
+    const { isShowBackdrop } = messageReducer
+
     return (
       <View style={styles.container}>
         <ScrollView>
-          <TouchableHighlight
-            onPress={() => {}}
-            underlayColor="#ccc"
-          >
-            <View>
-              <View style={styles.msg}>
-                <View style={commonStyle.horizontal}>
-                  <Text style={styles.textName}>Kai</Text>
-                  <Text style={commonStyle.colorGrey}>1楼</Text>
-                </View>
-                <View><Text style={commonStyle.colorGrey}>2016-10-29 21:16:38</Text></View>
-                <View style={styles.wrapContent}>
-                  <Text>dsfdsfdfdfdeee</Text>
-                </View>
-                <View style={[styles.wrapContent, commonStyle.flexRight]}>
-                  <TouchableOpacity onPress={() => {}}>
-                    <Text>回复</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View style={commonStyle.line} />
-            </View>
-          </TouchableHighlight>
+          {
+            messageReducer.data.map((item, index) => {
+              return (
+                <MsgItem
+                  key={index}
+                  data={item}
+                  toggleBackdrop={toggleBackdrop}
+                />
+              )
+            })
+          }
         </ScrollView>
-        <View style={styles.backdrop}>
-          <Animated.View style={{ height: 400, backgroundColor: '#fff'}}>
-            <TouchableHighlight
-              onPress={() => {}}
-              underlayColor="#ccc"
-            >
-              <View>
-                <View style={styles.msg}>
-                  <View style={commonStyle.horizontal}>
-                    <Text style={styles.textName}>Kai</Text>
-                    <Text style={commonStyle.colorGrey}>1楼</Text>
-                  </View>
+        {
+          isShowBackdrop ? (
+            <View style={[commonStyle.fullScreen, styles.backdrop]}>
+              <TouchableWithoutFeedback onPress={() => this.handleHideMsg()}>
+                <View style={[commonStyle.fullScreen, styles.backdropContent]} />
+              </TouchableWithoutFeedback>
+              <Animated.View
+                style={{
+                  height: 400,
+                  backgroundColor: '#fff',
+                  transform: [
+                    { translateY: this.state.y }
+                  ]
+                }}
+              >
+                <TouchableHighlight
+                  onPress={() => {}}
+                  underlayColor="#ccc"
+                >
                   <View>
-                    <Text style={commonStyle.colorGrey}>2016-10-29 21:16:38</Text>
+                    <View style={styles.msg}>
+                      <View style={commonStyle.horizontal}>
+                        <Text style={styles.textName}>Kai</Text>
+                        <Text style={commonStyle.colorGrey}>1楼</Text>
+                      </View>
+                      <View>
+                        <Text style={commonStyle.colorGrey}>2016-10-29 21:16:38</Text>
+                      </View>
+                      <View style={styles.wrapContent}>
+                        <Text>dsfdsfdfdfdeee</Text>
+                      </View>
+                      <View style={[styles.wrapContent, commonStyle.flexRight]}>
+                        <TouchableOpacity onPress={() => {}}>
+                          <Text>回复</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                    <View style={commonStyle.line} />
                   </View>
-                  <View style={styles.wrapContent}>
-                    <Text>dsfdsfdfdfdeee</Text>
-                  </View>
-                  <View style={[styles.wrapContent, commonStyle.flexRight]}>
-                    <TouchableOpacity onPress={() => {}}>
-                      <Text>回复</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-                <View style={commonStyle.line} />
-              </View>
-            </TouchableHighlight>
-          </Animated.View>
-        </View>
+                </TouchableHighlight>
+              </Animated.View>
+            </View>
+          ) : null
+        }
       </View>
     )
   }
 }
+
+function mapStateToProps({ messageReducer }) {
+  return { messageReducer }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(MsgActions, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Message)
 
 const styles = StyleSheet.create({
   container: {
@@ -89,15 +145,11 @@ const styles = StyleSheet.create({
     color: '#2196F3'
   },
   backdrop: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    opacity: .7,
-    backgroundColor: '#000',
     flex: 1,
     justifyContent: 'flex-end'
+  },
+  backdropContent: {
+    opacity: 0.7,
+    backgroundColor: '#000',
   }
-
 })

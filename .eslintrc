@@ -1,0 +1,49 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "mocha": true,
+    "node": true
+    },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {}
+  },
+  "plugins": [
+    "import",
+    "react"
+  ],
+  "globals": {},
+  "rules": {
+    "camelcase": 2,
+    "curly": 2,
+    "brace-style": [2, "1tbs"],
+    "semi": [2, "never"],
+    "space-infix-ops": 2,
+    "consistent-return": 0,
+    "arrow-parens": [2, "as-needed"],
+    "comma-dangle": 0,
+    "global-require": 0,
+    "no-use-before-define": 0,
+    "import/no-unresolved": [2, { "ignore": ["electron"] }],
+    "import/no-extraneous-dependencies": 0,
+    "react/jsx-no-bind": 0,
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }],
+    "react/prefer-stateless-function": 0,
+    "react/prop-types": 0,
+    "no-console": 0,
+    "no-debugger": 0,
+    "no-alert": 0,
+    "no-restricted-syntax": 0,
+    "quotes": ["error", "single", {"allowTemplateLiterals": true}],
+    "arrow-body-style": 0,
+    "no-new": 0,
+    "import/prefer-default-export": 0,
+    "no-param-reassign": 0,
+    "no-mixed-operators": 0,
+    "react/jsx-boolean-value": 0,
+    "react/no-string-refs": 0,
+    "import/no-mutable-exports": 0
+  }
+}

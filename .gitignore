@@ -34,6 +34,12 @@ local.properties
 node_modules/
 npm-debug.log
 
+android/app/myapp.jks
+android/app/src/main/assets/
+android/app/src/main/res/
+
+ios/bundle/
+
 # BUCK
 buck-out/
 \.buckd/
