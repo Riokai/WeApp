@@ -1,62 +1,36 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, Platform } from 'react-native'
-import ImagePicker from 'react-native-image-picker'
-
-const options = {
-  title: '选择图片',
-  storageOptions: {
-    skipBackup: true,
-    path: 'images'
-  }
-}
+import { View, Text, TouchableOpacity, Platform, StyleSheet, Image } from 'react-native'
 
 export default class Gallery extends Component {
-  selectPic() {
-    console.log('ImagePicker', ImagePicker.showImagePicker)
-    ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response)
+  constructor(props) {
+    super(props)
 
-      if (response.didCancel) {
-        console.log('User cancelled image picker')
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error)
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton)
-      } else {
-        // You can display the image using either data...
-        // const source = {uri: 'data:image/jpegbase64,' + response.data, isStatic: true}
-        let source = {
-          uri: `data:image/jpegbase64,${response.data}`,
-          isStatic: true
-        }
-
-        // or a reference to the platform specific asset location
-        if (Platform.OS === 'ios') {
-          source = {
-            uri: response.uri.replace('file://', ''),
-            isStatic: true
-          }
-        } else {
-          source = {
-            uri: response.uri,
-            isStatic: true
-          }
-        }
-
-        this.setState({
-          avatarSource: source
-        })
+    this.state = {
+      avatarSource: {
+        uri: 'http://mat1.gtimg.com/www/images/qq2012/qqlogo_2x.png'
       }
-    })
+    }
+  }
+
+  selectPic() {
   }
 
   render() {
     return (
       <View>
-        <TouchableOpacity onPress={this.selectPic}>
-          <Text>choose pic</Text>
+        <TouchableOpacity onPress={() => this.selectPic()}>
+          <Text>choose pic3</Text>
         </TouchableOpacity>
+
+        <Image source={this.state.avatarSource} style={styles.uploadAvatar} />
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  uploadAvatar: {
+    width: 220,
+    height: 70
+  }
+})
