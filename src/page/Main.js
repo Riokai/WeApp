@@ -8,7 +8,6 @@ import {
   ScrollView
 } from 'react-native'
 import { connect } from 'react-redux'
-// import Icon from 'react-native-vector-icons/FontAwesome'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import HeaderBar from '../component/HeaderBar'
 import moduleConfig from '../config/module.json'
