@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import ImagePicker from 'react-native-image-crop-picker'
 import { upload } from '../../service/qiniu'
+import * as galleryActions from '../../module/gallery'
 
-export default class Gallery extends Component {
+class Gallery extends Component {
   constructor(props) {
     super(props)
 
@@ -15,25 +18,40 @@ export default class Gallery extends Component {
   }
 
   selectPic() {
-    ImagePicker.openPicker({
-      multiple: true
-    }).then(images => {
-      console.log(images)
-      this.setState({
-        avatarSource: {
-          uri: images[0].path
-        }
-      })
-      upload(images[0].path).then(data => {
-        if (data.hash) {
-          Alert.alert(
-            'image upload successful',
-            'image upload successful',
-            [{
-              text: 'OK'
-            }]
-          )
-        }
+    const { fetchUptoken } = this.props
+
+    fetchUptoken().then(upToken => {
+      if (!upToken) {
+        Alert.alert(
+          'Info',
+          'server error',
+          [{
+            text: 'OK'
+          }]
+        )
+
+        return
+      }
+
+      ImagePicker.openPicker({
+        multiple: true
+      }).then(images => {
+        this.setState({
+          avatarSource: {
+            uri: images[0].path
+          }
+        })
+        upload(images[0].path, upToken).then(data => {
+          if (data.hash) {
+            Alert.alert(
+              'image upload successful',
+              'image upload successful',
+              [{
+                text: 'OK'
+              }]
+            )
+          }
+        })
       })
     })
   }
@@ -57,3 +75,13 @@ const styles = StyleSheet.create({
     height: 70
   }
 })
+
+function mapStateToProps({ galleryReducer }) {
+  return { galleryReducer }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(galleryActions, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Gallery)
