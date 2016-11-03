@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native'
 import ImagePicker from 'react-native-image-crop-picker'
+import { upload } from '../../service/qiniu'
 
 export default class Gallery extends Component {
   constructor(props) {
@@ -13,7 +14,6 @@ export default class Gallery extends Component {
     }
   }
 
-  // eslint-disable-next-line
   selectPic() {
     ImagePicker.openPicker({
       multiple: true
@@ -22,6 +22,17 @@ export default class Gallery extends Component {
       this.setState({
         avatarSource: {
           uri: images[0].path
+        }
+      })
+      upload(images[0].path).then(data => {
+        if (data.hash) {
+          Alert.alert(
+            'image upload successful',
+            'image upload successful',
+            [{
+              text: 'OK'
+            }]
+          )
         }
       })
     })
