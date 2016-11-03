@@ -12,7 +12,7 @@ import Timeline from './Timeline'
 export default class MainLayout extends Component {
   handleShowChildren() {
     const { id } = this.props
-    console.log('id', id);
+    console.log('id', id)
     let Children
 
     switch (id) {

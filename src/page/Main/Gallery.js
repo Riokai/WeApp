@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, Platform, StyleSheet, Image } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import ImagePicker from 'react-native-image-crop-picker'
 
 export default class Gallery extends Component {
   constructor(props) {
@@ -12,7 +13,18 @@ export default class Gallery extends Component {
     }
   }
 
+  // eslint-disable-next-line
   selectPic() {
+    ImagePicker.openPicker({
+      multiple: true
+    }).then(images => {
+      console.log(images)
+      this.setState({
+        avatarSource: {
+          uri: images[0].path
+        }
+      })
+    })
   }
 
   render() {

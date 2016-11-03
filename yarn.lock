@@ -4265,9 +4265,9 @@ react-deep-force-update@^1.0.0:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/react-deep-force-update/download/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
 
-react-native-image-picker:
-  version "0.22.13"
-  resolved "http://registry.npm.taobao.org/react-native-image-picker/download/react-native-image-picker-0.22.13.tgz#27e56578c6eed75a598897e2b60c61d15a7c73a7"
+react-native-image-crop-picker:
+  version "0.10.1"
+  resolved "http://registry.npm.taobao.org/react-native-image-crop-picker/download/react-native-image-crop-picker-0.10.1.tgz#d9835325faae489d6f0814f7f0b44fdb3caac60f"
 
 react-native-qiniu:
   version "0.2.2"
