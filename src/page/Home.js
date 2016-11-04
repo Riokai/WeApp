@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import TabNavigator from 'react-native-tab-navigator'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import MainPage from './Main'
@@ -30,9 +30,9 @@ export default class Home extends Component {
     return (
       <View style={styles.container}>
         <TabNavigator
-          tabBarStyle={{opacity: 0.9,}}
-          sceneStyle={{paddingBottom: 0}}
-          tabBarStyle={{backgroundColor: '#fff'}}
+          tabBarStyle={{ opacity: 0.9 }}
+          sceneStyle={{ paddingBottom: 0 }}
+          // tabBarStyle={{ backgroundColor: '#fff' }}
         >
           <TabNavigator.Item
             title="main"
