@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, ScrollView, StyleSheet, Image, Alert } from 'react-native'
+import { View, Text, TouchableHighlight, TextInput, ScrollView, StyleSheet, Image, Alert } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import ImagePicker from 'react-native-image-crop-picker'
@@ -7,6 +7,7 @@ import IonIcon from 'react-native-vector-icons/Ionicons'
 import { upload } from '../../service/qiniu'
 import * as galleryActions from '../../module/gallery'
 import AddButton from '../../component/AddButton'
+import CustomModal from '../../component/CustomModal'
 
 class Gallery extends Component {
   constructor(props) {
@@ -66,7 +67,7 @@ class Gallery extends Component {
             <View style={styles.albumContainer}>
               <View>
                 <Image
-                  source={{ uri: 'http://mat1.gtimg.com/www/images/qq2012/qqlogo_2x.png' }}
+                  source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1478849223&di=36770cfae25d9a44c07c0b3477336b85&imgtype=jpg&src=http%3A%2F%2Fpic19.nipic.com%2F20120216%2F9330945_114313510105_2.jpg' }}
                   style={styles.albumImage}
                   resizeMode="stretch"
                 />
@@ -86,7 +87,7 @@ class Gallery extends Component {
             <View style={styles.albumContainer}>
               <View>
                 <Image
-                  source={{ uri: 'http://mat1.gtimg.com/www/images/qq2012/qqlogo_2x.png' }}
+                  source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1478849223&di=36770cfae25d9a44c07c0b3477336b85&imgtype=jpg&src=http%3A%2F%2Fpic19.nipic.com%2F20120216%2F9330945_114313510105_2.jpg' }}
                   style={styles.albumImage}
                   resizeMode="stretch"
                 />
@@ -104,23 +105,30 @@ class Gallery extends Component {
           </TouchableHighlight>
         </ScrollView>
 
-
-        {/* <TouchableOpacity onPress={() => this.selectPic()}>
-          <Text>choose pic3</Text>
-        </TouchableOpacity>
-
-        <Image source={this.state.avatarSource} style={styles.uploadAvatar} /> */}
+        <CustomModal>
+          <View>
+            <Text style={{ textAlign: 'center', fontSize: 20, marginBottom: 10 }}>Create New Album</Text>
+            <TextInput
+              placeholder="Enter text to see events"
+              style={styles.textInput}
+              onChangeText={text => console.log('text', text)}
+              value=""
+            />
+          </View>
+        </CustomModal>
         <AddButton onPress={this.selectPic.bind(this)} />
       </View>
     )
   }
 }
 
-const height = 100
+const height = 90
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    paddingVertical: 2,
+    paddingLeft: 10
   },
   albumContainer: {
     flexDirection: 'row',
@@ -139,7 +147,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomColor: '#d1d1d1',
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    paddingVertical: 4
   },
   albumIcon: {
     flexDirection: 'row',
@@ -159,6 +168,13 @@ const styles = StyleSheet.create({
   uploadAvatar: {
     width: 220,
     height: 70
+  },
+  textInput: {
+    width: 300,
+    height: 40,
+    paddingHorizontal: 20,
+    borderColor: 'gray',
+    borderWidth: 1
   }
 })
 
