@@ -52,7 +52,7 @@ class Gallery extends Component {
             )
           }
         })
-      })
+      }, err => console.log('err', err))
     })
   }
 
