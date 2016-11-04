@@ -4269,10 +4269,6 @@ react-native-image-crop-picker:
   version "0.10.1"
   resolved "http://registry.npm.taobao.org/react-native-image-crop-picker/download/react-native-image-crop-picker-0.10.1.tgz#d9835325faae489d6f0814f7f0b44fdb3caac60f"
 
-react-native-md-textinput:
-  version "2.0.4"
-  resolved "http://registry.npm.taobao.org/react-native-md-textinput/download/react-native-md-textinput-2.0.4.tgz#9f81cff16ceba0bc595fc58ed1239bd13a4023a8"
-
 react-native-qiniu:
   version "0.2.2"
   resolved "http://registry.npm.taobao.org/react-native-qiniu/download/react-native-qiniu-0.2.2.tgz#5be1c766f2b242292727b325588f1959d4ede8d0"

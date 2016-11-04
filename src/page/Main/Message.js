@@ -34,6 +34,7 @@ class Message extends Component {
         this.state.y,
         {
           easing: Easing.ease,
+          duration: 200,
           toValue: 0,
         }
       ).start()
@@ -45,10 +46,13 @@ class Message extends Component {
       this.state.y,
       {
         easing: Easing.ease,
-        toValue: 400,
+        duration: 200,
+        toValue: 400
       }
     ).start(() => {
-      this.props.toggleBackdrop()
+      setTimeout(() => {
+        this.props.toggleBackdrop()
+      }, 100)
     })
   }
 
