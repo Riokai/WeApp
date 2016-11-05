@@ -21,10 +21,10 @@ class Gallery extends Component {
     }
   }
 
-  selectPic() {
+  async selectPic() {
     const { fetchUptoken } = this.props
 
-    const upToken = fetchUptoken()
+    const upToken = await fetchUptoken()
 
     if (!upToken) {
       Alert.alert(
@@ -38,26 +38,27 @@ class Gallery extends Component {
       return
     }
 
-    ImagePicker.openPicker({
+    const images = await ImagePicker.openPicker({
       multiple: true
-    }).then(images => {
-      this.setState({
-        avatarSource: {
-          uri: images[0].path
-        }
-      })
-      upload(images[0].path, upToken).then(data => {
-        if (data.hash) {
-          Alert.alert(
-            'image upload successful',
-            'image upload successful',
-            [{
-              text: 'OK'
-            }]
-          )
-        }
-      })
-    }, err => console.log('err', err))
+    })
+
+    this.setState({
+      avatarSource: {
+        uri: images[0].path
+      }
+    })
+
+    const data = await upload(images[0].path, upToken)
+
+    if (data.hash) {
+      Alert.alert(
+        'Info',
+        'image upload successful',
+        [{
+          text: 'OK'
+        }]
+      )
+    }
   }
 
   render() {

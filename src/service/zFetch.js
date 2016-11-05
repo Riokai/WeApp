@@ -2,7 +2,8 @@ import { shortShow } from './toast'
 import Storage from './storage'
 
 // const HOST = 'http://192.168.43.67:4000'
-const HOST = 'http://192.168.1.4:4000'
+// const HOST = 'http://192.168.1.4:4000'
+const HOST = 'http://localhost:4000'
 
 export default async function (url, options = {}, auth = true) {
   options.method = options.method || 'GET'
