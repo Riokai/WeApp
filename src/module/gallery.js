@@ -1,21 +1,18 @@
 import { createAction, createReducer } from 'redux-act'
+import zFetch from '../service/zFetch'
 
 export const setToken = createAction('set qiniu token')
 
 export function fetchUptoken() {
-  return dispatch => {
-    return fetch('http://localhost:4000/api/qiniu/token', {
-      headers: {
-        authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODFjYjU0OTVkYmY2YzczMzhlMDc0YjQiLCJpYXQiOjE0NzgyNzY0MjUsImV4cCI6MTQ3ODQ0OTIyNX0.5YTi411sI9qItsbubXoM2IXYriI-AuHBITlIpsHme60'
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.code === 200) {
-          dispatch(setToken(data.data.token))
-          return data.data.token
-        }
-      })
+  return async dispatch => {
+    const data = await zFetch('/api/qiniu/token')
+
+    if (data) {
+      const token = data.token
+      dispatch(setToken(token))
+
+      return token
+    }
   }
 }
 

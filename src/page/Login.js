@@ -5,13 +5,30 @@ import {
   StyleSheet,
   TextInput
 } from 'react-native'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import HeaderBar from '../component/HeaderBar'
 import commonStyle from '../style/common'
 import Button from '../component/Button'
+import * as loginActions from '../module/login'
 
-export default class Login extends Component {
+class Login extends Component {
+  handleInputChange(key, value) {
+    const { setValue } = this.props
+
+    setValue({ key, value })
+  }
+
+  handleLogin() {
+    // const {  } = this.props
+    const { login, loginReducer: { mail, pwd } } = this.props
+
+    login(mail, pwd)
+  }
+
   render() {
-    const { navigator } = this.props
+    const { navigator, loginReducer } = this.props
+    const { mail, pwd } = loginReducer
 
     return (
       <View style={commonStyle.pageWrapper}>
@@ -24,11 +41,15 @@ export default class Login extends Component {
         />
         <View style={styles.listContainer}>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>用户名</Text>
+            <Text style={styles.inputLabel}>邮箱</Text>
             <TextInput
               autoFocus={true}
               multiline={true}
+              onChangeText={text => {
+                this.handleInputChange('mail', text)
+              }}
               style={styles.default}
+              value={mail}
               accessibilityLabel="I am the accessibility label for text input"
             />
           </View>
@@ -38,13 +59,17 @@ export default class Login extends Component {
             <TextInput
               autoFocus={true}
               multiline={true}
+              onChangeText={text => {
+                this.handleInputChange('pwd', text)
+              }}
               style={styles.default}
+              value={pwd}
               accessibilityLabel="I am the accessibility label for text input"
             />
           </View>
           {/* <View style={commonStyle.line} /> */}
           <View style={styles.inputContainer}>
-            <Button onPress={() => {}}>登录</Button>
+            <Button onPress={this.handleLogin.bind(this)}>登录</Button>
           </View>
         </View>
       </View>
@@ -78,3 +103,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8
   }
 })
+
+function mapStateToProps({ loginReducer }) {
+  return { loginReducer }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(loginActions, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

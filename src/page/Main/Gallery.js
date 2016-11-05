@@ -23,40 +23,40 @@ class Gallery extends Component {
   selectPic() {
     const { fetchUptoken } = this.props
 
-    fetchUptoken().then(upToken => {
-      if (!upToken) {
-        Alert.alert(
-          'Info',
-          'server error',
-          [{
-            text: 'OK'
-          }]
-        )
+    const upToken = fetchUptoken()
 
-        return
-      }
+    if (!upToken) {
+      Alert.alert(
+        'Info',
+        'server error',
+        [{
+          text: 'OK'
+        }]
+      )
 
-      ImagePicker.openPicker({
-        multiple: true
-      }).then(images => {
-        this.setState({
-          avatarSource: {
-            uri: images[0].path
-          }
-        })
-        upload(images[0].path, upToken).then(data => {
-          if (data.hash) {
-            Alert.alert(
-              'image upload successful',
-              'image upload successful',
-              [{
-                text: 'OK'
-              }]
-            )
-          }
-        })
-      }, err => console.log('err', err))
-    })
+      return
+    }
+
+    ImagePicker.openPicker({
+      multiple: true
+    }).then(images => {
+      this.setState({
+        avatarSource: {
+          uri: images[0].path
+        }
+      })
+      upload(images[0].path, upToken).then(data => {
+        if (data.hash) {
+          Alert.alert(
+            'image upload successful',
+            'image upload successful',
+            [{
+              text: 'OK'
+            }]
+          )
+        }
+      })
+    }, err => console.log('err', err))
   }
 
   render() {
@@ -105,7 +105,7 @@ class Gallery extends Component {
           </TouchableHighlight>
         </ScrollView>
 
-        <CustomModal>
+        <CustomModal visible={false}>
           <View>
             <Text style={{ textAlign: 'center', fontSize: 20, marginBottom: 10 }}>Create New Album</Text>
             <TextInput
