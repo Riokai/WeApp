@@ -42,6 +42,7 @@ export default class CustomModal extends Component {
         // visible={this.props.visible}
         visible={this.props.visible}
         transparent={this.state.transparent}
+        onRequestClose={() => {}}
       >
         <View style={[styles.container, modalBackgroundStyle]}>
           <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
