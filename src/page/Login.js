@@ -11,6 +11,7 @@ import HeaderBar from '../component/HeaderBar'
 import commonStyle from '../style/common'
 import Button from '../component/Button'
 import * as loginActions from '../module/login'
+import HomePage from './Home'
 
 class Login extends Component {
   handleInputChange(key, value) {
@@ -21,9 +22,15 @@ class Login extends Component {
 
   handleLogin() {
     // const {  } = this.props
-    const { login, loginReducer: { mail, pwd } } = this.props
+    const { login, loginReducer: { mail, pwd }, navigator } = this.props
 
-    login(mail, pwd)
+    const isLogin = login(mail, pwd)
+
+    if (isLogin) {
+      navigator.resetTo({
+        component: HomePage
+      })
+    }
   }
 
   render() {

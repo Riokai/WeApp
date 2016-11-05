@@ -27,11 +27,19 @@ export default class Storage {
 
   static getJSON(key) {
     return getData(key).then(data => {
-      return JSON.parse(data)
+      if (data) {
+        return JSON.parse(data)
+      }
+
+      return {}
     })
   }
 
   static setJSON(key, value) {
     return setData(key, JSON.stringify(value))
+  }
+
+  static remove(key) {
+    return AsyncStorage.removeItem(key)
   }
 }

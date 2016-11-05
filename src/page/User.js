@@ -1,21 +1,26 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text, TouchableHighlight } from 'react-native'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import HeaderBar from '../component/HeaderBar'
 import LoginPage from './Login'
 import commonStyle from '../style/common'
+import * as loginActions from '../module/login'
 
-export default class User extends Component {
+class User extends Component {
+  componentDidMount() {
+    const { readData } = this.props
+
+    readData()
+  }
+
   render() {
-    const { navigator } = this.props
+    const { navigator, loginReducer: { profile }, removeProfile } = this.props
 
-    const getMenu = title => {
+    const getMenu = (title, handlePress) => {
       return (
         <TouchableHighlight
-          onPress={() => {
-            navigator.push({
-              component: LoginPage
-            })
-          }}
+          onPress={handlePress}
         >
           <View style={styles.menu}>
             <Text>{title}</Text>
@@ -35,9 +40,25 @@ export default class User extends Component {
         />
         <View style={styles.listContainer}>
           <View style={commonStyle.line} />
-          {getMenu('登录')}
-          <View style={commonStyle.line} />
-          {getMenu('setting2')}
+          {
+            profile.nickname ? (
+              <View>
+                {getMenu(profile.nickname, () => {})}
+                <View style={commonStyle.line} />
+                {getMenu('退出', () => {
+                  removeProfile()
+                })}
+              </View>
+            ) : (
+              <View>
+                {getMenu('登录', () => {
+                  navigator.push({
+                    component: LoginPage
+                  })
+                })}
+              </View>
+            )
+          }
         </View>
       </View>
     )
@@ -58,3 +79,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   }
 })
+
+function mapStateToProps({ loginReducer }) {
+  return { loginReducer }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(loginActions, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(User)

@@ -7,7 +7,7 @@ export default async function (url, options = {}, auth = true) {
   options.method = options.method || 'GET'
   options.headers = options.headers || {}
 
-  const token = await Storage.getStr('token')
+  const profile = await Storage.getJSON('profile')
 
   if (options.body) {
     options.headers = {
@@ -19,7 +19,7 @@ export default async function (url, options = {}, auth = true) {
   if (auth) {
     options.headers = {
       ...options.headers,
-      authorization: `Bearer ${token}`
+      authorization: `Bearer ${profile.token}`
     }
   }
 
