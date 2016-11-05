@@ -39,6 +39,7 @@ export default class CustomModal extends Component {
     return (
       <Modal
         animationType="slide"
+        // visible={this.props.visible}
         visible={this.props.visible}
         transparent={this.state.transparent}
       >

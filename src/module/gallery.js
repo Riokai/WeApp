@@ -6,7 +6,7 @@ export function fetchUptoken() {
   return dispatch => {
     return fetch('http://localhost:4000/api/qiniu/token', {
       headers: {
-        authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODFhYWY4YTI1MTk3ZDUxYmZhMzVhZjAiLCJpYXQiOjE0NzgxNDM4ODIsImV4cCI6MTQ3ODMxNjY4Mn0.j8P06voRXTllbDV7BcL4YRuAthzTrL_3RQB50v3lo44'
+        authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODFjYjU0OTVkYmY2YzczMzhlMDc0YjQiLCJpYXQiOjE0NzgyNzY0MjUsImV4cCI6MTQ3ODQ0OTIyNX0.5YTi411sI9qItsbubXoM2IXYriI-AuHBITlIpsHme60'
       }
     })
       .then(res => res.json())
