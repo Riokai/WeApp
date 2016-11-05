@@ -8,6 +8,7 @@ import { upload } from '../../service/qiniu'
 import * as galleryActions from '../../module/gallery'
 import AddButton from '../../component/AddButton'
 import CustomModal from '../../component/CustomModal'
+import noPic from '../../asset/no_pic.png'
 
 class Gallery extends Component {
   constructor(props) {
@@ -67,9 +68,10 @@ class Gallery extends Component {
             <View style={styles.albumContainer}>
               <View>
                 <Image
-                  source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1478849223&di=36770cfae25d9a44c07c0b3477336b85&imgtype=jpg&src=http%3A%2F%2Fpic19.nipic.com%2F20120216%2F9330945_114313510105_2.jpg' }}
+                  // source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1478849223&di=36770cfae25d9a44c07c0b3477336b85&imgtype=jpg&src=http%3A%2F%2Fpic19.nipic.com%2F20120216%2F9330945_114313510105_2.jpg' }}
+                  source={noPic}
                   style={styles.albumImage}
-                  resizeMode="stretch"
+                  resizeMode="cover"
                 />
               </View>
               <View style={styles.ablumInfo}>
