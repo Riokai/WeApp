@@ -1,7 +1,8 @@
 import { shortShow } from './toast'
 import Storage from './storage'
 
-const HOST = 'http://192.168.43.67:4000'
+// const HOST = 'http://192.168.43.67:4000'
+const HOST = 'http://192.168.1.4:4000'
 
 export default async function (url, options = {}, auth = true) {
   options.method = options.method || 'GET'
@@ -29,8 +30,19 @@ export default async function (url, options = {}, auth = true) {
 
   const deffer = () => {
     return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        reject('请求超时')
+      }, 5000)
+
       fetch(`${HOST}${url}`, options)
-        .then(res => res.json())
+        .then(res => {
+          clearTimeout(timer)
+          if (res.json) {
+            return res.json()
+          }
+
+          reject('响应数据错误')
+        })
         .then(data => {
           if (data.code === 200) {
             resolve(data.data)
@@ -39,6 +51,7 @@ export default async function (url, options = {}, auth = true) {
           }
         })
         .catch(err => {
+          console.log('err', err)
           reject(err)
         })
     })

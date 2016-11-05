@@ -3,13 +3,13 @@ import { View, Text, StatusBar, StyleSheet, Platform, TouchableOpacity } from 'r
 import IonIcon from 'react-native-vector-icons/Ionicons'
 
 const StatusBarShape = {
-    barStyle: PropTypes.oneOf(['light-content', 'default',]),
-    networkActivityIndicatorVisible: PropTypes.bool,
-    showHideTransition:PropTypes.oneOf(['fade', 'slide']),
-    hidden: PropTypes.bool,
-    translucent: PropTypes.bool,
-    backgroundColor: PropTypes.string,
-    animated: PropTypes.bool
+  barStyle: PropTypes.oneOf(['light-content', 'default']),
+  networkActivityIndicatorVisible: PropTypes.bool,
+  showHideTransition: PropTypes.oneOf(['fade', 'slide']),
+  hidden: PropTypes.bool,
+  translucent: PropTypes.bool,
+  backgroundColor: PropTypes.string,
+  animated: PropTypes.bool
 }
 
 export default class HeaderBar extends Component {
@@ -35,18 +35,24 @@ export default class HeaderBar extends Component {
 
   render() {
     const { navigator, backgroundColor } = this.props
+    const bgStatus = Platform.OS !== 'ios' && (
+      backgroundColor === '#fff' || backgroundColor === 'white'
+    ) ? '#000000' : backgroundColor
 
     return (
       <View style={[{ backgroundColor }, this.props.style]}>
         <StatusBar
           style={styles.statusBar}
-          backgroundColor={backgroundColor}
+          backgroundColor={bgStatus}
           {...this.props.statusBar}
         />
         {
-          Platform.OS === 'ios' ? (<View style={[styles.iosStatusBar, {
-            backgroundColor
-          }]} />) : null
+          Platform.OS === 'ios' ? (
+            <View
+              style={[styles.iosStatusBar, {
+                backgroundColor
+              }]}
+            />) : null
         }
         <View style={styles.navBar}>
           {

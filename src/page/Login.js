@@ -11,6 +11,7 @@ import HeaderBar from '../component/HeaderBar'
 import commonStyle from '../style/common'
 import Button from '../component/Button'
 import * as loginActions from '../module/login'
+import { isIOS } from '../service/util'
 import HomePage from './Home'
 
 class Login extends Component {
@@ -24,13 +25,13 @@ class Login extends Component {
     // const {  } = this.props
     const { login, loginReducer: { mail, pwd }, navigator } = this.props
 
-    const isLogin = login(mail, pwd)
-
-    if (isLogin) {
-      navigator.resetTo({
-        component: HomePage
-      })
-    }
+    login(mail, pwd).then(isLogin => {
+      if (isLogin) {
+        navigator.resetTo({
+          component: HomePage
+        })
+      }
+    })
   }
 
   render() {
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
     height: 35,
     // borderWidth: 0.5,
     borderColor: '#0f0f0f',
-    borderBottomWidth: 0.5,
+    borderBottomWidth: isIOS() ? 0.5 : 0,
     flex: 1,
     fontSize: 13,
     padding: 4,
