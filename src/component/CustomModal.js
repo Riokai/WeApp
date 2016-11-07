@@ -29,12 +29,15 @@ export default class CustomModal extends Component {
 
   render() {
     const modalBackgroundStyle = {
+      // backgroundColor: this.state.transparent ? 'rgba(0, 0, 0, 0.5)' : '#f5fcff',
       backgroundColor: this.state.transparent ? 'rgba(0, 0, 0, 0.5)' : '#f5fcff',
     }
 
     const innerContainerTransparentStyle = this.state.transparent ? {
       backgroundColor: '#fff', padding: 20
     } : null
+
+    const { onCancel, onOK } = this.props
 
     return (
       <Modal
@@ -49,16 +52,16 @@ export default class CustomModal extends Component {
             {this.props.children}
             <View style={styles.btnWrapper}>
               <Button
-                onPress={() => {}}
+                onPress={onCancel}
                 style={styles.modalButton}
               >
-                Close
+                取消
               </Button>
               <Button
-                onPress={() => {}}
+                onPress={onOK}
                 style={styles.modalButton}
               >
-                OK
+                确定
               </Button>
             </View>
           </View>
@@ -77,6 +80,7 @@ const styles = StyleSheet.create({
   innerContainer: {
     borderRadius: 10,
     alignItems: 'center',
+    top: -30
   },
   btnWrapper: {
     flexDirection: 'row'

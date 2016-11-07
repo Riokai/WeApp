@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, TextInput, ScrollView, StyleSheet, Image, Alert } from 'react-native'
+import { View, Text, TouchableHighlight, TextInput, ScrollView, StyleSheet, Image } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import ImagePicker from 'react-native-image-crop-picker'
 import IonIcon from 'react-native-vector-icons/Ionicons'
-import { upload } from '../../service/qiniu'
-import { shortShow } from '../../service/toast'
 import * as galleryActions from '../../module/gallery'
 import AddButton from '../../component/AddButton'
 import CustomModal from '../../component/CustomModal'
@@ -23,46 +20,30 @@ class Gallery extends Component {
     }
   }
 
-  async selectPic() {
-    const { fetchUptoken } = this.props
+  componentDidMount() {
+    const { fetchAlbumList } = this.props
 
-    const upToken = await fetchUptoken()
+    fetchAlbumList()
+  }
 
-    if (!upToken) {
-      Alert.alert(
-        'Info',
-        'server error',
-        [{
-          text: 'OK'
-        }]
-      )
+  toggleAblumModal(isShow) {
+    const { toggleModal } = this.props
 
-      return
+    toggleModal(isShow)
+
+    if (isShow) {
+      setTimeout(() => {
+        if (this.refs.input) {
+          this.refs.input.focus()
+        }
+      }, 10)
     }
+  }
 
-    let images
+  createAlbum() {
+    const { addNewAlbum } = this.props
 
-    try {
-      images = await ImagePicker.openPicker({
-        multiple: true
-      })
-    } catch (e) {
-      shortShow('未选择图片')
-
-      return
-    }
-
-    this.setState({
-      avatarSource: {
-        uri: images[0].path
-      }
-    })
-
-    const data = await upload(images[0].path, upToken)
-
-    if (data.hash) {
-      shortShow('图片上传成功')
-    }
+    addNewAlbum()
   }
 
   jumpToImageList() {
@@ -79,64 +60,64 @@ class Gallery extends Component {
   }
 
   render() {
+    const { galleryReducer: { albumData, albumName, isShowModal }, setAlbumName } = this.props
+
     return (
       <View style={styles.container}>
         <ScrollView>
-          <TouchableHighlight onPress={() => this.jumpToImageList()} underlayColor="rgba(0, 0, 0, 0.1)">
-            <View style={styles.albumContainer}>
-              <View>
-                <Image
-                  // source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1478849223&di=36770cfae25d9a44c07c0b3477336b85&imgtype=jpg&src=http%3A%2F%2Fpic19.nipic.com%2F20120216%2F9330945_114313510105_2.jpg' }}
-                  source={noPic}
-                  style={styles.albumImage}
-                  resizeMode="cover"
-                />
-              </View>
-              <View style={styles.ablumInfo}>
-                <View style={styles.ablumInfoInner}>
-                  <View><Text style={{ color: '#313131' }}>Name</Text></View>
-                  <View style={styles.albumIcon}>
-                    <Text style={styles.albumIconText}>1111</Text>
-                    <IonIcon name="ios-arrow-forward" size={20} color="#acacac" />
+          {
+            albumData.map(album => {
+              const { children, name, _id } = album
+
+              return (
+                <TouchableHighlight
+                  onPress={() => this.jumpToImageList()}
+                  underlayColor="rgba(0, 0, 0, 0.1)"
+                  key={_id}
+                >
+                  <View style={styles.albumContainer}>
+                    <View>
+                      <Image
+                        // source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1478849223&di=36770cfae25d9a44c07c0b3477336b85&imgtype=jpg&src=http%3A%2F%2Fpic19.nipic.com%2F20120216%2F9330945_114313510105_2.jpg' }}
+                        source={noPic}
+                        style={styles.albumImage}
+                        resizeMode="cover"
+                      />
+                    </View>
+                    <View style={styles.ablumInfo}>
+                      <View style={styles.ablumInfoInner}>
+                        <View><Text style={{ color: '#313131' }}>{name}</Text></View>
+                        <View style={styles.albumIcon}>
+                          <Text style={styles.albumIconText}>{children.length}</Text>
+                          <IonIcon name="ios-arrow-forward" size={20} color="#acacac" />
+                        </View>
+                      </View>
+                    </View>
                   </View>
-                </View>
-              </View>
-            </View>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={() => {}} underlayColor="rgba(0, 0, 0, 0.1)">
-            <View style={styles.albumContainer}>
-              <View>
-                <Image
-                  source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1478849223&di=36770cfae25d9a44c07c0b3477336b85&imgtype=jpg&src=http%3A%2F%2Fpic19.nipic.com%2F20120216%2F9330945_114313510105_2.jpg' }}
-                  style={styles.albumImage}
-                  resizeMode="stretch"
-                />
-              </View>
-              <View style={styles.ablumInfo}>
-                <View style={styles.ablumInfoInner}>
-                  <View><Text style={{ color: '#313131' }}>Name</Text></View>
-                  <View style={styles.albumIcon}>
-                    <Text style={styles.albumIconText}>1111</Text>
-                    <IonIcon name="ios-arrow-forward" size={20} color="#acacac" />
-                  </View>
-                </View>
-              </View>
-            </View>
-          </TouchableHighlight>
+                </TouchableHighlight>
+              )
+            })
+          }
         </ScrollView>
 
-        <CustomModal visible={false}>
+        <CustomModal
+          visible={isShowModal}
+          onCancel={this.toggleAblumModal.bind(this, false)}
+          onOK={this.createAlbum.bind(this)}
+        >
           <View>
-            <Text style={{ textAlign: 'center', fontSize: 20, marginBottom: 10 }}>Create New Album</Text>
+            <Text style={{ textAlign: 'center', fontSize: 20, marginBottom: 10 }}>创建相册</Text>
             <TextInput
-              placeholder="Enter text to see events"
+              ref="input"
+              placeholder=""
               style={styles.textInput}
-              onChangeText={text => console.log('text', text)}
-              value=""
+              // autoFocus={true}
+              onChangeText={text => setAlbumName(text)}
+              value={albumName}
             />
           </View>
         </CustomModal>
-        <AddButton onPress={this.selectPic.bind(this)} />
+        <AddButton onPress={this.toggleAblumModal.bind(this, true)} />
       </View>
     )
   }

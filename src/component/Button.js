@@ -30,7 +30,7 @@ export default class Button extends Component {
     return (
       <TouchableHighlight
         onHideUnderlay={this.onUnhighlight.bind(this)}
-        onPress={this.props.onPress.bind(this)}
+        onPress={this.props.onPress}
         onShowUnderlay={this.onHighlight.bind(this)}
         style={[styles.button, this.props.style]}
         underlayColor="rgba(0, 0, 0, 0.1)"

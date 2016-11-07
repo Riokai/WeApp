@@ -7,19 +7,55 @@ import {
   StyleSheet,
   Dimensions
 } from 'react-native'
+import ImagePicker from 'react-native-image-crop-picker'
 import AddButton from '../../component/AddButton'
+import { upload } from '../../service/qiniu'
+import { shortShow } from '../../service/toast'
 import GalleryBrowserPage from './GalleryBrowser'
 
 export default class GalleryContent extends Component {
-  // eslint-disable-next-line
-  selectPic() {}
-
   viewPic() {
     const { navigator } = this.props
 
     navigator.push({
       component: GalleryBrowserPage
     })
+  }
+
+  async selectPic() {
+    const { fetchUptoken } = this.props
+
+    const upToken = await fetchUptoken()
+
+    if (!upToken) {
+      shortShow('server error')
+
+      return
+    }
+
+    let images
+
+    try {
+      images = await ImagePicker.openPicker({
+        multiple: true
+      })
+    } catch (e) {
+      shortShow('未选择图片')
+
+      return
+    }
+
+    this.setState({
+      avatarSource: {
+        uri: images[0].path
+      }
+    })
+
+    const data = await upload(images[0].path, upToken)
+
+    if (data.hash) {
+      shortShow('图片上传成功')
+    }
   }
 
   render() {
