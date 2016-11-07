@@ -10,16 +10,6 @@ import noPic from '../../asset/no_pic.png'
 import MainLayout from './Layout'
 
 class Gallery extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      avatarSource: {
-        uri: 'http://mat1.gtimg.com/www/images/qq2012/qqlogo_2x.png'
-      }
-    }
-  }
-
   componentDidMount() {
     const { fetchAlbumList } = this.props
 
@@ -46,14 +36,17 @@ class Gallery extends Component {
     addNewAlbum()
   }
 
-  jumpToImageList() {
-    const { navigator, bgcolor } = this.props
+  jumpToImageList({ name, _id, children }, current) {
+    const { navigator, bgcolor, changeAlbumCurrent } = this.props
+
+    changeAlbumCurrent(current)
 
     navigator.push({
       component: MainLayout,
       params: {
         bgcolor,
-        title: 'galler list',
+        _id,
+        title: name,
         id: 'gallery-content'
       }
     })
@@ -66,12 +59,15 @@ class Gallery extends Component {
       <View style={styles.container}>
         <ScrollView>
           {
-            albumData.map(album => {
+            albumData.map((album, index) => {
               const { children, name, _id } = album
+              const source = children.length ? {
+                uri: `http://riosite.qiniudn.com/${children[0].hash}-thumbnail`
+              } : noPic
 
               return (
                 <TouchableHighlight
-                  onPress={() => this.jumpToImageList()}
+                  onPress={() => this.jumpToImageList(album, index)}
                   underlayColor="rgba(0, 0, 0, 0.1)"
                   key={_id}
                 >
@@ -79,7 +75,7 @@ class Gallery extends Component {
                     <View>
                       <Image
                         // source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1478849223&di=36770cfae25d9a44c07c0b3477336b85&imgtype=jpg&src=http%3A%2F%2Fpic19.nipic.com%2F20120216%2F9330945_114313510105_2.jpg' }}
-                        source={noPic}
+                        source={source}
                         style={styles.albumImage}
                         resizeMode="cover"
                       />

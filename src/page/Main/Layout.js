@@ -12,7 +12,7 @@ import Timeline from './Timeline'
 
 export default class MainLayout extends Component {
   handleShowChildren() {
-    const { id, navigator, bgcolor } = this.props
+    const { id, navigator } = this.props
     let Children
 
     switch (id) {
@@ -38,7 +38,7 @@ export default class MainLayout extends Component {
         Children = Together
     }
 
-    return <Children navigator={navigator} bgcolor={bgcolor} />
+    return <Children navigator={navigator} {...this.props} />
   }
 
   render() {

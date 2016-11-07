@@ -3,17 +3,21 @@ import {
   View,
   TouchableWithoutFeedback,
   Image,
+  Text,
   ScrollView,
   StyleSheet,
   Dimensions
 } from 'react-native'
 import ImagePicker from 'react-native-image-crop-picker'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as galleryActions from '../../module/gallery'
 import AddButton from '../../component/AddButton'
 import { upload } from '../../service/qiniu'
 import { shortShow } from '../../service/toast'
 import GalleryBrowserPage from './GalleryBrowser'
 
-export default class GalleryContent extends Component {
+class GalleryContent extends Component {
   viewPic() {
     const { navigator } = this.props
 
@@ -23,7 +27,7 @@ export default class GalleryContent extends Component {
   }
 
   async selectPic() {
-    const { fetchUptoken } = this.props
+    const { fetchUptoken, addImage, _id } = this.props
 
     const upToken = await fetchUptoken()
 
@@ -54,49 +58,46 @@ export default class GalleryContent extends Component {
     const data = await upload(images[0].path, upToken)
 
     if (data.hash) {
-      shortShow('图片上传成功')
+      const dataHash = await addImage(_id, data.hash)
+
+      if (dataHash) {
+        shortShow('图片上传到服务器成功')
+      }
+    } else {
+      shortShow('图片上传到七牛失败')
     }
   }
 
   render() {
+    const { galleryReducer } = this.props
+    const { albumData, albumCurrent } = galleryReducer
+    const data = albumData[albumCurrent].children
+
+
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-          <TouchableWithoutFeedback onPress={this.viewPic.bind(this)} style={styles.imageItem}>
-            <Image
-              source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1478849223&di=36770cfae25d9a44c07c0b3477336b85&imgtype=jpg&src=http%3A%2F%2Fpic19.nipic.com%2F20120216%2F9330945_114313510105_2.jpg' }}
-              style={styles.albumImage}
-              resizeMode="stretch"
-            />
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={this.viewPic.bind(this)}>
-            <Image
-              source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1478849223&di=36770cfae25d9a44c07c0b3477336b85&imgtype=jpg&src=http%3A%2F%2Fpic19.nipic.com%2F20120216%2F9330945_114313510105_2.jpg' }}
-              style={styles.albumImage}
-              resizeMode="stretch"
-            />
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={this.viewPic.bind(this)}>
-            <Image
-              source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1478849223&di=36770cfae25d9a44c07c0b3477336b85&imgtype=jpg&src=http%3A%2F%2Fpic19.nipic.com%2F20120216%2F9330945_114313510105_2.jpg' }}
-              style={styles.albumImage}
-              resizeMode="stretch"
-            />
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={this.viewPic.bind(this)}>
-            <Image
-              source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1478849223&di=36770cfae25d9a44c07c0b3477336b85&imgtype=jpg&src=http%3A%2F%2Fpic19.nipic.com%2F20120216%2F9330945_114313510105_2.jpg' }}
-              style={[styles.albumImage, { marginRight: 0 }]}
-              resizeMode="stretch"
-            />
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={this.viewPic.bind(this)}>
-            <Image
-              source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1478849223&di=36770cfae25d9a44c07c0b3477336b85&imgtype=jpg&src=http%3A%2F%2Fpic19.nipic.com%2F20120216%2F9330945_114313510105_2.jpg' }}
-              style={styles.albumImage}
-              resizeMode="stretch"
-            />
-          </TouchableWithoutFeedback>
+          {
+            data.length ? data.map((item, index) => {
+              return (
+                <TouchableWithoutFeedback
+                  key={index}
+                  onPress={this.viewPic.bind(this)}
+                  style={styles.imageItem}
+                >
+                  <Image
+                    source={{ uri: `http://riosite.qiniudn.com/${item.hash}-thumbnail` }}
+                    style={styles.albumImage}
+                    resizeMode="stretch"
+                  />
+                </TouchableWithoutFeedback>
+              )
+            }) : (
+              <View style={{ flex: 1, marginTop: 50 }}>
+                <Text style={styles.text}>暂无图片，快去上传吧</Text>
+              </View>
+            )
+          }
         </ScrollView>
         <AddButton onPress={this.selectPic.bind(this)} />
       </View>
@@ -118,5 +119,19 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     width: windowWidth / 4,
     height: windowWidth / 4
+  },
+  text: {
+    fontSize: 18,
+    textAlign: 'center'
   }
 })
+
+function mapStateToProps({ galleryReducer }) {
+  return { galleryReducer }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(galleryActions, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GalleryContent)

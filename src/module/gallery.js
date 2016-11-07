@@ -4,6 +4,8 @@ import { shortShow } from '../service/toast'
 
 export const setToken = createAction('set qiniu token')
 export const setAlbumData = createAction('get album data')
+export const changeAlbumCurrent = createAction('change current album')
+export const updateAlbumData = createAction('update album data')
 export const toggleModal = createAction('toggle modal')
 export const setAlbumName = createAction('set album name')
 
@@ -34,8 +36,6 @@ export function addNewAlbum() {
       }
     })
 
-    console.log('data', data)
-
     if (data) {
       dispatch(setAlbumData([
         ...albumData,
@@ -44,6 +44,21 @@ export function addNewAlbum() {
 
       dispatch(toggleModal())
       shortShow('相册创建成功')
+    }
+  }
+}
+
+export function addImage(id, hash) {
+  return async dispatch => {
+    const data = await zFetch(`/api/album/${id}`, {
+      method: 'POST',
+      body: { hash }
+    })
+
+    if (data) {
+      shortShow('图片上传成功')
+
+      dispatch(updateAlbumData(data))
     }
   }
 }
@@ -64,6 +79,7 @@ export function fetchUptoken() {
 const initialState = {
   upToken: '',
   albumData: [],
+  albumCurrent: 0,
   albumName: '',
   isShowModal: false
 }
@@ -71,6 +87,29 @@ const initialState = {
 export default createReducer({
   [setToken]: (state, uptoken) => ({ ...state, uptoken }),
   [setAlbumData]: (state, albumData) => ({ ...state, albumData }),
+  [changeAlbumCurrent]: (state, albumCurrent) => ({ ...state, albumCurrent }),
+  [updateAlbumData]: (state, albumData) => {
+    let albumIndex
+    const cloneData = [...state.albumData]
+
+    cloneData.some((album, index) => {
+      // eslint-disable-next-line
+      const result = album._id === albumData._id
+
+      if (result) {
+        albumIndex = index
+      }
+
+      return result
+    })
+
+    cloneData[albumIndex] = albumData
+
+    return {
+      ...state,
+      albumData: cloneData
+    }
+  },
   [setAlbumName]: (state, albumName) => ({ ...state, albumName }),
   [toggleModal]: (state, isShowModal = false) => ({ ...state, isShowModal, albumName: '' })
 }, initialState)

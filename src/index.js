@@ -10,7 +10,6 @@ const store = createStore()
 export default class Root extends Component {
   // eslint-disable-next-line
   renderScene(route, navigator) {
-    console.log('route', route)
     const { component: RouterComponent, params } = route
     return (
       <RouterComponent
