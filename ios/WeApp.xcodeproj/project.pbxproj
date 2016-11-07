@@ -24,6 +24,7 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		262CDA146BF74A3998ECD8FC /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE49CF53ED6441D196863C0D /* FontAwesome.ttf */; };
+		2A386E4F1DD04B8D0015AB4C /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A386E4E1DD04AC70015AB4C /* libART.a */; };
 		2AF144B51DCB3A450064B224 /* ImageCropPickerSDK in Resources */ = {isa = PBXBuildFile; fileRef = 2AF144B41DCB3A450064B224 /* ImageCropPickerSDK */; };
 		2AF144CA1DCB3ABC0064B224 /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AF144C91DCB3ABC0064B224 /* RSKImageCropper.framework */; };
 		2AF144CB1DCB3ABC0064B224 /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2AF144C91DCB3ABC0064B224 /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -160,6 +161,13 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+		2A386E4D1DD04AC70015AB4C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A386E491DD04AC60015AB4C /* ART.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0CF68AC11AF0540F00FF9E5C;
+			remoteInfo = ART;
+		};
 		2AFE980F1DCB384100B81DB7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5E3F68F66892413ABA3178DC /* ImageCropPicker.xcodeproj */;
@@ -220,6 +228,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = WeApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = WeApp/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		2A386E491DD04AC60015AB4C /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		2AF144B41DCB3A450064B224 /* ImageCropPickerSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ImageCropPickerSDK; path = "../node_modules/react-native-image-crop-picker/ios/ImageCropPickerSDK"; sourceTree = "<group>"; };
 		2AF144C91DCB3ABC0064B224 /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AF144CC1DCB3ABC0064B224 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -250,6 +259,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A386E4F1DD04B8D0015AB4C /* libART.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -378,6 +388,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2A386E4A1DD04AC60015AB4C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A386E4E1DD04AC70015AB4C /* libART.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2AFE980C1DCB384100B81DB7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -398,6 +416,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2A386E491DD04AC60015AB4C /* ART.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
@@ -510,7 +529,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 800;
-				ORGANIZATIONNAME = Facebook;
+				ORGANIZATIONNAME = Kai;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -533,6 +552,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 2A386E4A1DD04AC60015AB4C /* Products */;
+					ProjectRef = 2A386E491DD04AC60015AB4C /* ART.xcodeproj */;
+				},
 				{
 					ProductGroup = 2AFE980C1DCB384100B81DB7 /* Products */;
 					ProjectRef = 5E3F68F66892413ABA3178DC /* ImageCropPicker.xcodeproj */;
@@ -701,6 +724,13 @@
 			fileType = archive.ar;
 			path = libRNVectorIcons.a;
 			remoteRef = 2A2ADDF01DC9D463006C8D25 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2A386E4E1DD04AC70015AB4C /* libART.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libART.a;
+			remoteRef = 2A386E4D1DD04AC70015AB4C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2AFE98101DCB384100B81DB7 /* libimageCropPicker.a */ = {

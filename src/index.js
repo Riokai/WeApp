@@ -8,14 +8,14 @@ import HomePage from './page/Home'
 const store = createStore()
 
 export default class Root extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  _renderScene(route, navigator) {
+  renderScene(route, navigator) {
+    console.log('route', route)
     const { component: RouterComponent, params } = route
     return (
-      <RouterComponent {...params} navigator={navigator}/>
+      <RouterComponent
+        {...params}
+        navigator={navigator}
+      />
     )
   }
 
@@ -27,7 +27,7 @@ export default class Root extends Component {
             name: 'Home',
             component: HomePage
           }}
-          renderScene={(e, i) => this._renderScene(e, i)}
+          renderScene={(e, i) => this.renderScene(e, i)}
         />
       </Provider>
     )

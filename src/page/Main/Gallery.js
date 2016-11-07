@@ -10,6 +10,7 @@ import * as galleryActions from '../../module/gallery'
 import AddButton from '../../component/AddButton'
 import CustomModal from '../../component/CustomModal'
 import noPic from '../../asset/no_pic.png'
+import MainLayout from './Layout'
 
 class Gallery extends Component {
   constructor(props) {
@@ -64,11 +65,24 @@ class Gallery extends Component {
     }
   }
 
+  jumpToImageList() {
+    const { navigator, bgcolor } = this.props
+
+    navigator.push({
+      component: MainLayout,
+      params: {
+        bgcolor,
+        title: 'galler list',
+        id: 'gallery-content'
+      }
+    })
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <TouchableHighlight onPress={() => {}} underlayColor="rgba(0, 0, 0, 0.1)">
+          <TouchableHighlight onPress={() => this.jumpToImageList()} underlayColor="rgba(0, 0, 0, 0.1)">
             <View style={styles.albumContainer}>
               <View>
                 <Image

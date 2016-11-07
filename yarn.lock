@@ -4277,6 +4277,16 @@ react-native-image-crop-picker:
   version "0.10.1"
   resolved "http://registry.npm.taobao.org/react-native-image-crop-picker/download/react-native-image-crop-picker-0.10.1.tgz#d9835325faae489d6f0814f7f0b44fdb3caac60f"
 
+react-native-photo-browser:
+  version "0.2.2"
+  resolved "http://registry.npm.taobao.org/react-native-photo-browser/download/react-native-photo-browser-0.2.2.tgz#f40601770c34472de20f917683f1d6e7b7b9d981"
+  dependencies:
+    react-native-progress "^3.0.0"
+
+react-native-progress@^3.0.0:
+  version "3.1.0"
+  resolved "http://registry.npm.taobao.org/react-native-progress/download/react-native-progress-3.1.0.tgz#775d69fceda3ebbf6b1cdafdf9342c1fbccb8216"
+
 react-native-qiniu:
   version "0.2.2"
   resolved "http://registry.npm.taobao.org/react-native-qiniu/download/react-native-qiniu-0.2.2.tgz#5be1c766f2b242292727b325588f1959d4ede8d0"

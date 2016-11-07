@@ -6,12 +6,13 @@ import commonStyle from '../../style/common'
 import Together from './Together'
 import Message from './Message'
 import Gallery from './Gallery'
+import GalleryContent from './GalleryContent'
 import Todo from './Todo'
 import Timeline from './Timeline'
 
 export default class MainLayout extends Component {
   handleShowChildren() {
-    const { id } = this.props
+    const { id, navigator, bgcolor } = this.props
     let Children
 
     switch (id) {
@@ -24,6 +25,9 @@ export default class MainLayout extends Component {
       case 'gallery':
         Children = Gallery
         break
+      case 'gallery-content':
+        Children = GalleryContent
+        break
       case 'todo':
         Children = Todo
         break
@@ -34,7 +38,7 @@ export default class MainLayout extends Component {
         Children = Together
     }
 
-    return <Children />
+    return <Children navigator={navigator} bgcolor={bgcolor} />
   }
 
   render() {
