@@ -52,8 +52,11 @@ export default async function (url, options = {}, auth = true) {
           }
         })
         .catch(err => {
-          console.log('err', err)
-          reject(err)
+          if (typeof err === 'object') {
+            reject(err.message)
+          } else {
+            reject(err)
+          }
         })
     })
   }
