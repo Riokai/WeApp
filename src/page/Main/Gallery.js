@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import ImagePicker from 'react-native-image-crop-picker'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import { upload } from '../../service/qiniu'
+import { shortShow } from '../../service/toast'
 import * as galleryActions from '../../module/gallery'
 import AddButton from '../../component/AddButton'
 import CustomModal from '../../component/CustomModal'
@@ -38,9 +39,17 @@ class Gallery extends Component {
       return
     }
 
-    const images = await ImagePicker.openPicker({
-      multiple: true
-    })
+    let images
+
+    try {
+      images = await ImagePicker.openPicker({
+        multiple: true
+      })
+    } catch (e) {
+      shortShow('未选择图片')
+
+      return
+    }
 
     this.setState({
       avatarSource: {
@@ -51,13 +60,7 @@ class Gallery extends Component {
     const data = await upload(images[0].path, upToken)
 
     if (data.hash) {
-      Alert.alert(
-        'Info',
-        'image upload successful',
-        [{
-          text: 'OK'
-        }]
-      )
+      shortShow('图片上传成功')
     }
   }
 
