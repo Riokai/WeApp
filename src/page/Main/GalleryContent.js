@@ -11,18 +11,33 @@ import {
 import ImagePicker from 'react-native-image-crop-picker'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Bar } from 'react-native-progress'
 import * as galleryActions from '../../module/gallery'
 import AddButton from '../../component/AddButton'
 import { upload } from '../../service/qiniu'
 import { shortShow } from '../../service/toast'
 import GalleryBrowserPage from './GalleryBrowser'
+import { IMAGE_HOST } from '../../config/global'
 
 class GalleryContent extends Component {
-  viewPic() {
-    const { navigator } = this.props
+  viewPic(index) {
+    const { galleryReducer, navigator } = this.props
+    const { albumData, albumCurrent } = galleryReducer
+    const data = albumData[albumCurrent].children
+
+    const processData = data.map(item => {
+      return {
+        photo: `${IMAGE_HOST}/${item.hash}`,
+        caption: ''
+      }
+    })
 
     navigator.push({
-      component: GalleryBrowserPage
+      component: GalleryBrowserPage,
+      params: {
+        data: processData,
+        index
+      }
     })
   }
 
@@ -73,7 +88,6 @@ class GalleryContent extends Component {
     const { albumData, albumCurrent } = galleryReducer
     const data = albumData[albumCurrent].children
 
-
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -82,11 +96,11 @@ class GalleryContent extends Component {
               return (
                 <TouchableWithoutFeedback
                   key={index}
-                  onPress={this.viewPic.bind(this)}
+                  onPress={this.viewPic.bind(this, index)}
                   style={styles.imageItem}
                 >
                   <Image
-                    source={{ uri: `http://riosite.qiniudn.com/${item.hash}-thumbnail` }}
+                    source={{ uri: `${IMAGE_HOST}/${item.hash}-thumbnail` }}
                     style={styles.albumImage}
                     resizeMode="stretch"
                   />
@@ -94,11 +108,14 @@ class GalleryContent extends Component {
               )
             }) : (
               <View style={{ flex: 1, marginTop: 50 }}>
-                <Text style={styles.text}>暂无图片，快去上传吧</Text>
+                <Text style={{ fontSize: 18, textAlign: 'center' }}>暂无图片，快去上传吧</Text>
               </View>
             )
           }
         </ScrollView>
+        <View style={styles.progress}>
+          <Bar progress={0.8} width={200} />
+        </View>
         <AddButton onPress={this.selectPic.bind(this)} />
       </View>
     )
@@ -120,9 +137,12 @@ const styles = StyleSheet.create({
     width: windowWidth / 4,
     height: windowWidth / 4
   },
-  text: {
-    fontSize: 18,
-    textAlign: 'center'
+  progress: {
+    position: 'absolute',
+    bottom: 30,
+    left: 0,
+    right: 0,
+    alignItems: 'center'
   }
 })
 

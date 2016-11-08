@@ -1,6 +1,7 @@
 import { createAction, createReducer } from 'redux-act'
 import zFetch from '../service/zFetch'
 import { shortShow } from '../service/toast'
+import { env } from '../config/global'
 
 export const setToken = createAction('set qiniu token')
 export const setAlbumData = createAction('get album data')
@@ -65,7 +66,7 @@ export function addImage(id, hash) {
 
 export function fetchUptoken() {
   return async dispatch => {
-    const data = await zFetch('/api/qiniu/token')
+    const data = await zFetch(`/api/qiniu/token?env=${env}`)
 
     if (data) {
       const token = data.token
@@ -81,7 +82,10 @@ const initialState = {
   albumData: [],
   albumCurrent: 0,
   albumName: '',
-  isShowModal: false
+  isShowModal: false,
+  // 0：完成或者未开始， 1：进行中
+  uploadStatus: 0,
+  uploadProgress: 0
 }
 
 export default createReducer({

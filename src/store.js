@@ -1,12 +1,17 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import createLogger from 'redux-logger'
 import rootReducer from './module'
+import { env } from './config/global'
 
-const logger = createLogger()
+const middlewares = [thunk]
 
-// const enhancer = applyMiddleware(thunk)
-const enhancer = applyMiddleware(thunk, logger)
+if (env === 'dev') {
+  const createLogger = require(`redux-logger`)
+  const logger = createLogger()
+  middlewares.push(logger)
+}
+
+const enhancer = applyMiddleware(...middlewares)
 
 export default function configureStore(initialState) {
   const store = createStore(rootReducer, initialState, enhancer)

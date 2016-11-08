@@ -8,6 +8,7 @@ import AddButton from '../../component/AddButton'
 import CustomModal from '../../component/CustomModal'
 import noPic from '../../asset/no_pic.png'
 import MainLayout from './Layout'
+import { IMAGE_HOST } from '../../config/global'
 
 class Gallery extends Component {
   componentDidMount() {
@@ -59,10 +60,10 @@ class Gallery extends Component {
       <View style={styles.container}>
         <ScrollView>
           {
-            albumData.map((album, index) => {
+            albumData.length ? albumData.map((album, index) => {
               const { children, name, _id } = album
               const source = children.length ? {
-                uri: `http://riosite.qiniudn.com/${children[0].hash}-thumbnail`
+                uri: `${IMAGE_HOST}/${children[0].hash}-thumbnail`
               } : noPic
 
               return (
@@ -92,7 +93,11 @@ class Gallery extends Component {
                   </View>
                 </TouchableHighlight>
               )
-            })
+            }) : (
+              <View style={{ flex: 1, marginTop: 50 }}>
+                <Text style={{ fontSize: 18, textAlign: 'center' }}>暂无相册，快去创建吧</Text>
+              </View>
+            )
           }
         </ScrollView>
 

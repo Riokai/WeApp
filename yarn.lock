@@ -4283,7 +4283,7 @@ react-native-photo-browser:
   dependencies:
     react-native-progress "^3.0.0"
 
-react-native-progress@^3.0.0:
+react-native-progress, react-native-progress@^3.0.0:
   version "3.1.0"
   resolved "http://registry.npm.taobao.org/react-native-progress/download/react-native-progress-3.1.0.tgz#775d69fceda3ebbf6b1cdafdf9342c1fbccb8216"
 

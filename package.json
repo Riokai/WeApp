@@ -20,6 +20,7 @@
     "react-native": "0.36.0",
     "react-native-image-crop-picker": "^0.10.1",
     "react-native-photo-browser": "^0.2.2",
+    "react-native-progress": "^3.1.0",
     "react-native-qiniu": "^0.2.2",
     "react-native-root-toast": "^1.0.3",
     "react-native-scrollable-tab-view": "^0.6.0",
