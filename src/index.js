@@ -15,6 +15,7 @@ export default class Root extends Component {
       <RouterComponent
         {...params}
         navigator={navigator}
+        // {...route.passProps}
       />
     )
   }

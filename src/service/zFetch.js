@@ -1,24 +1,25 @@
 import { shortShow } from './toast'
 import Storage from './storage'
+import { HOST } from '../config/global'
 
 // const HOST = 'http://192.168.43.67:4000'
 // const HOST = 'http://192.168.1.4:4000'
-const HOST = 'http://localhost:4000'
 
 export default async function (url, options = {}, auth = true) {
   options.method = options.method || 'GET'
   options.headers = options.headers || {}
 
-  const profile = await Storage.getJSON('profile')
 
   if (options.body) {
     options.headers = {
       ...options.headers,
-      'Content-Type': 'application/json; charset=utf-8'
+      'Content-Type': 'application/json'
     }
   }
 
   if (auth) {
+    const profile = await Storage.getJSON('profile')
+
     options.headers = {
       ...options.headers,
       authorization: `Bearer ${profile.token}`

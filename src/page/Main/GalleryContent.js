@@ -26,10 +26,7 @@ class GalleryContent extends Component {
     const data = albumData[albumCurrent].children
 
     const processData = data.map(item => {
-      return {
-        photo: `${IMAGE_HOST}/${item.hash}`,
-        caption: ''
-      }
+      return `${IMAGE_HOST}/${item.hash}`
     })
 
     navigator.push({
@@ -97,11 +94,14 @@ class GalleryContent extends Component {
                 <TouchableWithoutFeedback
                   key={index}
                   onPress={this.viewPic.bind(this, index)}
+                  // onPress={() => {}}
                   style={styles.imageItem}
                 >
                   <Image
                     source={{ uri: `${IMAGE_HOST}/${item.hash}-thumbnail` }}
-                    style={styles.albumImage}
+                    style={[styles.albumImage, {
+                      marginRight: index % 4 === 3 ? 0 : 2
+                    }]}
                     resizeMode="stretch"
                   />
                 </TouchableWithoutFeedback>
