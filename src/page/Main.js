@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import HeaderBar from '../component/HeaderBar'
-import moduleConfig from '../config/module.json'
+import textService from '../config/text'
 import MainLayout from './Main/Layout'
 import commonStyle from '../style/common'
 
@@ -29,7 +29,7 @@ class Main extends Component {
     return (
       <View style={commonStyle.pageWrapper}>
         <HeaderBar
-          title="Module"
+          title="列表"
           statusBar={{ barStyle: 'default' }}
           textStyle={{ color: '#000' }}
           backgroundColor="#fff"
@@ -37,9 +37,9 @@ class Main extends Component {
         />
         <ScrollView style={styles.scrollView}>
           {
-            moduleConfig.map(item => {
+            textService.module.map(item => {
               return (
-                <TouchableHighlight onPress={this.handlePress.bind(this, item)} key={item.name}>
+                <TouchableHighlight onPress={this.handlePress.bind(this, item)} key={item.key}>
                   <View style={[styles.section, { backgroundColor: item.bgcolor }]}>
                     <View style={styles.iconWrapper}>
                       <IonIcon name={item.icon} size={40} color="#fff" />

@@ -32,7 +32,7 @@ class User extends Component {
     return (
       <View style={commonStyle.pageWrapper}>
         <HeaderBar
-          title="User"
+          title="用户"
           statusBar={{ barStyle: 'default' }}
           textStyle={{ color: '#000' }}
           backgroundColor="#fff"
